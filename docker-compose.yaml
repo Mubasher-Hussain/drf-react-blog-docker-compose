@@ -1,0 +1,28 @@
+version: "3.2"
+services:
+  backend:
+    restart: always
+    container_name: backend
+    image: dockerfolder_backend:latest
+    command : bash -c "python manage.py migrate &&
+                      python manage.py runserver 0.0.0.0:8000"
+    #env_file:
+    #  - ./backend/.env
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+  frontend:
+    restart: always
+    container_name: frontend
+    image: dockerfolder_frontend:latest
+    #env_file:
+    #  - ./frontend/.env
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
