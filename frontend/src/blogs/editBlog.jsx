@@ -1,5 +1,4 @@
 import React from "react";
-import { propTypes } from "react-notification-system";
 
 import { useHistory, useLocation } from "react-router-dom";
 
@@ -19,7 +18,7 @@ export  function EditBlog (props){
       props.createNotification('Blog Updated', 'success');
       history.goBack();
     })
-    .catch( (error) => props.createNotification(error, 'error')) 
+    .catch( (error) => props.createNotification(error.message + '.Either Unauthorised or Empty Field', 'error')) 
   }
   return (
     <BlogFormat handleClick={handleClick} blogData={query}/>

@@ -16,7 +16,7 @@ export function NewBlog (props){
       history.goBack(); 
     })
     .catch((error) => {
-      props.createNotification(error, 'error')
+      props.createNotification(error.message + '.Either Unauthorised or Empty Field', 'error')
     })
   
   }

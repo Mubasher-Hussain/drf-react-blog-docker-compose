@@ -30,7 +30,7 @@ class BlogsList(generics.ListCreateAPIView):
             try:
                 author = User.objects.get(username=self.kwargs['author'])
                 return Blog.objects.filter(author=author).order_by('-updated_at')
-            except:
+            except User.DoesNotExist:
                 print('Author not found')
         else:
             return Blog.objects.all().order_by('-updated_at')
@@ -48,11 +48,11 @@ class BlogsDetail(generics.RetrieveUpdateDestroyAPIView):
     def retrieve(self, request, pk):
         """For adding isAuthor field to return data for edit/delete options"""
         data = {}
-        blogObj = self.get_object()
-        blogSerialized = self.serializer_class(blogObj)
-        data['post'] = blogSerialized.data
+        blog_obj = self.get_object()
+        blog_serialized = self.serializer_class(blog_obj)
+        data['post'] = blog_serialized.data
         if request.user.is_authenticated:
-            data['isAuth'] = 'yes' if blogObj in request.user.blog_set.all() else ''
+            data['isAuth'] = 'yes' if blog_obj in request.user.blog_set.all() else ''
         return Response(data)
 
 

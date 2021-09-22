@@ -33,7 +33,7 @@ export function BlogDetails(props) {
       props.createNotification('Blog Deleted', 'success');
       history.goBack();
     })
-    .catch( (error) => props.createNotification(error, 'error'))
+    .catch( (error) => props.createNotification(error.message + '.Either Unauthorised or Empty Field', 'error'))
   }
   
   function displayDetail(){
@@ -91,7 +91,7 @@ export function BlogDetails(props) {
       history.push('../');
       history.push(`../blogDetails/${pk}`);
     })
-    .catch( (error) => props.createNotification(error, 'error'))
+    .catch( (error) => props.createNotification(error.message + '.Either Unauthorised or Empty Field', 'error'))
   }
   
   return (
